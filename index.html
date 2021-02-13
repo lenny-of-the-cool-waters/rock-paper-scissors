@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styling -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+
+    <title>Rock|Paper|Scissors</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container nav-container">
+            <button class="navbar-toggler pl-0 pt-2" type="button" data-toggle="collapse" data-target="#Navbar">
+                <ion-icon name="grid-outline"></ion-icon>
+                <!-- <span class="navbar-toggler-icon"></span> -->
+            </button>
+
+            <div id="Navbar" class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mr-3 mt-1">
+                        <a href="#" class="reset unstyled-link" role="button">
+                            <ion-icon name="refresh-outline" class="nav-icon"></ion-icon>
+                            <span>Reset </span>
+                        </a>
+                    </li>
+                    <li class="nav-item mr-3 mt-1" id="help" data-toggle="tooltip" data-html="true" title="Rock beats scissors, Scissors beat paper, Paper beats rock" data-placement="bottom">
+                        <ion-icon name="help-outline" class="nav-icon"></ion-icon>
+                        <span>Help</span>
+                    </li>
+                </ul>                
+            </div>
+            <span class="navbar-text pr-xs-4 ml-md-auto mt-1">
+                <a data-toggle="modal" data-target="#creditsModal">
+                    <ion-icon name="code-slash-outline" class="nav-icon"></ion-icon>
+                    <span>Credits</span>
+                </a>
+            </span>
+        </div>
+    </nav>
+
+    <!-- Credits Modal -->
+    <div class="modal fade" id="creditsModal">
+        <div class="modal-dialog" role="content">
+            <div class="modal-content text-center">
+                <div class="modalHeader">
+                    <h4 class="modal-title mt-3 ml-2">CREDITS</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-content">
+                        <div class="col col-12 ">
+                            <h5>Developer</h5>
+                            <p>Lenny Git</p>
+                            <h5>Resources</h5>
+                            <p>
+                                <a href="https://icons8.com/icon/DqDoo81rWhwd/hand-scissors">Icons8</a><br>
+                                <a href="https://ionicons.com/">Ionicons</a><br>
+                                <a href="https://www.theodinproject.com/">The Odin Project</a>
+                            </p>
+                            <h5>Special Thanks</h5>
+                            <p>M.M <br>K.C.W</p>
+                        </div>
+                    </div>
+                    <div class="row row-content">
+                        <button type="button" class="btn btn-small btn-dark ml-auto mr-auto" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="game-container">
+            <div class="comp">
+                <div class="game-btn comp-btn" id="compRock">
+                    <img src="https://img.icons8.com/ios/50/000000/hand-rock.png"/>
+                </div>
+                <div class="game-btn comp-btn" id="compPaper">
+                    <img src="https://img.icons8.com/ios/50/000000/hand.png"/>
+                </div>
+                <div class="game-btn comp-btn" id="compScissors">
+                    <img src="https://img.icons8.com/ios/50/000000/hand-scissors--v1.png"/>
+                </div>
+            </div>
+            <div class="score">
+                <a href="#" class="unstyled-link" id="startScore" role="button">START</a>
+                <!-- <p>COMP <span id="compScore">0</span>  ||  <span id="playerScore">0</span> PLAYER</p> -->
+            </div>
+            <div class="player">
+                <div class="game-btn player-btn">
+                    <img id="playerRock" src="https://img.icons8.com/ios-filled/50/000000/hand-rock.png"/>
+                </div>
+                <div class="game-btn player-btn">
+                    <img id="playerPaper" src="https://img.icons8.com/ios-filled/50/000000/hand.png"/>
+                </div>
+                <div class="game-btn player-btn">
+                    <img id="playerScissors" src="https://img.icons8.com/ios-filled/50/000000/hand-scissors--v1.png"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game scripts -->
+    <script src="./scripts.js"></script>
+    <!-- Bootstrap dependencies -->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Function for tooltips -->
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+</html>

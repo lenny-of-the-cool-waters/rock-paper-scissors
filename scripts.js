@@ -1,97 +1,84 @@
-//Importing modules
-const prompt = require('prompt-sync')();
+// Variable declaration
+let compBtns = document.querySelectorAll(".comp-btn");
+let playerBtns = document.querySelectorAll(".player-btn");
+let buttons = document.querySelectorAll(".game-btn");
+let startScore = document.querySelector("#startScore");
+let resetBtn = document.querySelectorAll(".reset");
+let wins = 0, draws = 0 , losses = 0, playCounter = 0;
+
 
 // Function to generate choice for computer
-let computerPlay = () => {
+function computerPlay() {
     let compChoice = ["Rock", "Paper", "Scissors"];
     return (compChoice[Math.floor(Math.random() * 3)])
 }
 
+// Function to reset game
+function reset() {
+    wins = 0, draws = 0 , losses = 0, playCounter = 0;
+    startScore.textContent = (`COMP: ${String(losses)} || ${String(wins)} :YOU`);
+}
 
 // Function to play a single round
-let playRound = (playerSelection, computerSelection) => {
-    switch(playerSelection.toLowerCase()) {
-        case 'rock': 
-            if(computerSelection == "Paper") {
-                return ({
-                    msg: "You lose! Paper beats Rock",
-                    score: "loss"
-                })
-            } else if(computerSelection == "Scissors") {
-                return ({
-                    msg: "You win! Rock beats Scissors",
-                    score: "win"
-                })
-            } else {
-                return ({
-                    msg: "Draw!",
-                    score: "draw"
-                })
-            }
-
-        case 'paper': 
-            if(computerSelection == "Scissors") {
-                return ({
-                    msg: "You lose! Scissors beat Paper",
-                    score: "loss"
-                })
-            } else if(computerSelection == "Rock") {
-                return ({
-                    msg: "You win! Paper beats Rock",
-                    score: "win"
-                })
-            } else {
-                return ({
-                    msg: "Draw!",
-                    score: "draw"
-                })
-            }
-
-        case 'scissors': 
-            if(computerSelection == "Rock") {
-                return ({
-                    msg: "You lose! Rock beats Scissors",
-                    score: "loss"
-                })
-            } else if(computerSelection == "Paper") {
-                return ({
-                    msg: "You win! Scissors beat Paper",
-                    score: "win"
-                })
-            } else {
-                return ({
-                    msg: "Draw!",
-                    score: "draw"
-                })
-            }
+function playRound(e) {
+    if(wins < 5 && losses < 5) {
+        playCounter++;
+        compBtns.forEach(btn => btn.classList.remove("playing"))
+        let compSelection = computerPlay();
+        switch(compSelection) {
+            case 'Rock':
+                compRock.classList.add('playing');
+                if(e.target.id == "playerRock") {
+                    draws++;
+                } else if(e.target.id == "playerPaper") {
+                    wins++;
+                } else if(e.target.id == "playerScissors") {
+                    losses++;
+                }
+                break;
+            case 'Paper':
+                compPaper.classList.add('playing');
+                if(e.target.id == "playerRock") {
+                    losses++;
+                } else if(e.target.id == "playerPaper") {
+                    draws++;
+                } else if(e.target.id == "playerScissors") {
+                    wins++;
+                }
+                break;
+            case 'Scissors': 
+                compScissors.classList.add('playing');
+                if(e.target.id == "playerRock") {   
+                    wins++;
+                } else if(e.target.id == "playerPaper") {
+                    losses++;
+                } else if(e.target.id == "playerScissors") {
+                    draws++;
+                }
+                break;
+        }
+        
+        startScore.textContent = (`COMP: ${String(losses)} || ${String(wins)} :YOU`);
     }
+
+    if(wins == 5 || losses == 5) {
+        if(wins > losses) {
+            startScore.textContent = ("You Win! Play Again?")
+        } else if(wins == losses) {
+            startScore.textContent = ("Draw! Play Again?")
+        } else if(wins < losses) {
+            startScore.textContent = ("Comp Wins! Play Again?")
+        }
+
+        startScore.addEventListener("click", reset);
+        return ;
+    } 
 }
 
-// Function to play 5 rounds and get final score
-let game = () => {
-    let wins = 0, draws = 0, losses = 0;
 
-    for(let i=0; i<5; i++) {
-        let playerChoice = prompt("Rock, Paper or Scissors? ");
-        let compChoice = computerPlay();
-        let result = playRound(playerChoice, compChoice);
-        console.log(result.msg)
+// Call using doc ready and reset
+playerBtns.forEach(btn => btn.addEventListener('mousedown', playRound));
+resetBtn.forEach(btn => btn.addEventListener('click', reset));
 
-        if(result.score == "win") {
-            wins++
-        } else if(result.score == "loss") {
-            losses++
-        } else { draws++ }
-    }
 
-    if(wins > losses) {
-        console.log("\n\t ~~~~~ You beat the computer ~~~~~\n")
-    } else if(wins == losses) {
-        console.log("\n\t ~~~~~ Even Match ~~~~~\n")
-    } else if(wins < losses) {
-        console.log("\n\t ~~~~~ The computer beat you ~~~~~\n")
-    }
-}
-
-game();
 
